@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+{% block nomPage %}
+    {% if action == "ajouter" %}
+		Ajouter une entreprise
+	{% else %}
+		Modifier une entreprise
+	{% endif %}
+{% endblock %}
+
+
+{% block liste %}
+	{{ form_start(vueFormulaireEntreprise) }}
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					{{form_label(vueFormulaireEntreprise.nom)}}
+				</td>
+				<td>
+					{{form_errors(vueFormulaireEntreprise.nom)}}
+				</td>
+				<td>
+					{{form_widget(vueFormulaireEntreprise.nom)}}
+				</td>
+			</tr
+            <tr>
+				<td>
+					{{form_label(vueFormulaireEntreprise.adresse)}}
+				</td>
+				<td>
+					{{form_errors(vueFormulaireEntreprise.adresse)}}
+				</td>
+				<td>
+					{{form_widget(vueFormulaireEntreprise.adresse)}}
+				</td>
+			</tr>
+
+            <tr>
+				<td>
+					{{form_label(vueFormulaireEntreprise.activite)}}
+				</td>
+				<td>
+					{{form_errors(vueFormulaireEntreprise.activite)}}
+				</td>
+				<td>
+					{{form_widget(vueFormulaireEntreprise.activite)}}
+				</td>
+			</tr>
+            <tr>
+				<td>
+					{{form_label(vueFormulaireEntreprise.site)}}
+				</td>
+				<td>
+					{{form_errors(vueFormulaireEntreprise.site)}}
+				</td>
+				<td>
+					{{form_widget(vueFormulaireEntreprise.site)}}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+    <button type="submit" class="btn btn-dark">Enregistrer</button>
+	{{ form_end(vueFormulaireEntreprise) }}
+{% endblock %}

@@ -11,6 +11,11 @@ use App\Repository\StageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManager;
 
 class ProStageController extends AbstractController
 {
@@ -19,7 +24,7 @@ class ProStageController extends AbstractController
      */
     public function index(StageRepository $reposStage): Response
     {
-        $stages = $reposStage->trouverStageEtEntreprise();
+        $stages = $reposStage->findStagesAvecEntreprises();
 
         return $this->render(
             'pro_stage/index.html.twig',
@@ -39,6 +44,70 @@ class ProStageController extends AbstractController
             ['entreprises' => $entreprises]
         );
     }
+
+    /**
+     * @Route("/entreprises/ajout", name="Prostage_ajout_entreprise")
+     */
+    public function ajouterEntreprise(Request $request, EntityManagerInterface $manager): Response
+    {
+        $entreprise = new Entreprise();
+
+        $formulaireEntreprise = $this->createFormBuilder($entreprise)
+            ->add('nom', TextType::class)
+            ->add('adresse', TextType::class)
+            ->add('activite', TextType::class)
+            ->add('site', UrlType::class)
+            ->getForm();
+
+            $formulaireEntreprise->handleRequest($request);
+
+            if ($formulaireEntreprise->isSubmitted()) {
+                $manager->persist($entreprise);
+                $manager->flush();
+    
+                return $this->redirectToRoute('ProStage_entreprises');
+            }
+    
+            return $this->render(
+                'pro_stage/formulaireAjoutModifEntreprise.html.twig',
+                [
+                    'vueFormulaireEntreprise' => $formulaireEntreprise->createView(),
+                    'action'                  => "ajouter"
+                ]
+            );
+    }
+
+
+    /**
+     * @Route("/entreprises/modifier/{id}", name="ProStage_modification_entreprise")
+     */
+    public function modifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise)
+    {
+        $formulaireEntreprise = $this->createFormBuilder(($entreprise))
+            ->add('nom', TextType::class)
+            ->add('adresse', TextType::class)
+            ->add('activite', TextType::class)
+            ->add('site', UrlType::class)
+            ->getForm();
+
+        $formulaireEntreprise->handleRequest($request);
+
+        if ($formulaireEntreprise->isSubmitted()) {
+            $manager->persist($entreprise);
+            $manager->flush();
+
+            return $this->redirectToRoute('ProStage_entreprises');
+        }
+
+        return $this->render(
+            'pro_stage/formulaireAjoutModifEntreprise.html.twig',
+            [
+                'vueFormulaireEntreprise' => $formulaireEntreprise->createView(),
+                'action'                  => "modifier"
+            ]
+        );
+    }
+
 
     /**
      * @Route("/formations", name="ProStage_formations")
@@ -70,7 +139,8 @@ class ProStageController extends AbstractController
      */
     public function afficherDetailEntreprise(Entreprise $entreprise, StageRepository $reposStage): Response
     {
-        $stages = $reposStage->findByEntreprise($entreprise);
+        // $stages = $reposStage->findByEntreprise($entreprise);
+        $stages = $reposStage->findStagesPourUneEntreprise($entreprise->getNom());
 
         return $this->render(
             'pro_stage/affichageDetailEntreprise.html.twig',
@@ -84,11 +154,16 @@ class ProStageController extends AbstractController
     /**
      * @Route("/formation/{id}", name="ProStage_detail_formation")
      */
-    public function afficherDetailFormation(Formation $formation): Response
+    public function afficherDetailFormation(Formation $formation, StageRepository $reposStage): Response
     {
+        $stages = $reposStage->findStagesPourUneFormation($formation->getNom());
+
         return $this->render(
             'pro_stage/affichageDetailFormation.html.twig',
-            ['formation' => $formation]
+             [
+                'formation' => $formation,
+                'stages'    => $stages
+            ]
         );
     }
 }
