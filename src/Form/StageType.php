@@ -18,14 +18,14 @@ class StageType extends AbstractType
             ->add('missions')
             ->add('contact')
             ->add('entreprise')
-            ->add('formations', EntityType::class, array(
+            /* ->add('formations', EntityType::class, array(
                 'class' => Formation::class,
                 'choice_label' => function (Formation $formation) {
                     return $formation->getNom();
                 },
                 'multiple' => true,
                 'expanded' => true,
-            ))
+            )) */
         ;
     }
 
