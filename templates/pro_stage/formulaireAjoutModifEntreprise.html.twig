@@ -10,56 +10,25 @@
 
 {% block liste %}
 	{{ form_start(vueFormulaireEntreprise) }}
-	<table>
-		<tbody>
-			<tr>
-				<td>
-					{{form_label(vueFormulaireEntreprise.nom)}}
-				</td>
-				<td>
-					{{form_errors(vueFormulaireEntreprise.nom)}}
-				</td>
-				<td>
-					{{form_widget(vueFormulaireEntreprise.nom)}}
-				</td>
-			</tr
-            <tr>
-				<td>
-					{{form_label(vueFormulaireEntreprise.adresse)}}
-				</td>
-				<td>
-					{{form_errors(vueFormulaireEntreprise.adresse)}}
-				</td>
-				<td>
-					{{form_widget(vueFormulaireEntreprise.adresse)}}
-				</td>
-			</tr>
 
-            <tr>
-				<td>
-					{{form_label(vueFormulaireEntreprise.activite)}}
-				</td>
-				<td>
-					{{form_errors(vueFormulaireEntreprise.activite)}}
-				</td>
-				<td>
-					{{form_widget(vueFormulaireEntreprise.activite)}}
-				</td>
-			</tr>
-            <tr>
-				<td>
-					{{form_label(vueFormulaireEntreprise.site)}}
-				</td>
-				<td>
-					{{form_errors(vueFormulaireEntreprise.site)}}
-				</td>
-				<td>
-					{{form_widget(vueFormulaireEntreprise.site)}}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+			<label>Nom de l'entreprise </label>
 
-    <button type="submit" class="btn btn-dark">Enregistrer</button>
+		{{form_widget(vueFormulaireEntreprise.nom, {'attr':{'placeholder':"Exemple : InfoSymf"}})}}
+
+			<label>Adresse de l'entreprise </label>
+
+		{{form_widget(vueFormulaireEntreprise.adresse, {'attr':{'placeholder':"Exemple : 40 rue de l'Amphi"}})}}
+
+			<label>Le secteur d'activite de l'entreprise</label>
+
+		{{form_widget(vueFormulaireEntreprise.activite, {'attr':{'placeholder':"Exemple : Développement web"}})}}
+
+			<label>L'URL du site internet de l'entreprise</label>
+
+		{{form_widget(vueFormulaireEntreprise.site, {'attr':{'placeholder':"Exemple : www.infosymf.com"}})}}
+		
+
+    	<button type="submit" class="btn btn-dark">Enregistrer</button>
+
 	{{ form_end(vueFormulaireEntreprise) }}
 {% endblock %}
