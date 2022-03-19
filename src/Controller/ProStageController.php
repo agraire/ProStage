@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
+use App\Form\EntrepriseType;
 
 class ProStageController extends AbstractController
 {
@@ -53,12 +54,7 @@ class ProStageController extends AbstractController
     {
         $entreprise = new Entreprise();
 
-        $formulaireEntreprise = $this->createFormBuilder($entreprise)
-            ->add('nom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('activite', TextType::class)
-            ->add('site', UrlType::class)
-            ->getForm();
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
             $formulaireEntreprise->handleRequest($request);
 
@@ -84,12 +80,8 @@ class ProStageController extends AbstractController
      */
     public function modifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise)
     {
-        $formulaireEntreprise = $this->createFormBuilder(($entreprise))
-            ->add('nom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('activite', TextType::class)
-            ->add('site', UrlType::class)
-            ->getForm();
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
+            
 
         $formulaireEntreprise->handleRequest($request);
 
