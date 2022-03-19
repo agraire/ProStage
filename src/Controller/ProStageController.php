@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use App\Form\EntrepriseType;
+use App\Form\StageType;
+
 
 class ProStageController extends AbstractController
 {
@@ -74,6 +76,32 @@ class ProStageController extends AbstractController
             );
     }
 
+    /**
+     * @Route("/stages/ajout", name="ProStage_ajout_stage")
+     */
+    public function ajouterStage(Request $request, EntityManagerInterface $manager)
+    {
+        $stage = new Stage();
+
+        $formulaireStage = $this->createForm(StageType::class, $stage);
+
+        $formulaireStage->handleRequest($request);
+
+        if ($formulaireStage->isSubmitted() && $formulaireStage->isValid()){
+            $manager->persist($stage);
+            $manager->flush();
+
+            return $this->redirectToRoute('ProStage_accueil');
+        }
+
+        return $this->render(
+            'pro_stage/formulaireAjoutStage.html.twig',
+            [
+                'vueFormulaireStage' => $formulaireStage->createView(),
+                'action' => "ajouter"
+            ]
+        );
+    }
 
     /**
      * @Route("/entreprises/modifier/{id}", name="ProStage_modification_entreprise")
