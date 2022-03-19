@@ -8,6 +8,7 @@ use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
