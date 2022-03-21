@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Entity\Stage;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -12,6 +13,26 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+
+        //création de 2 utilisateurs
+        $antoine = new User();
+        $antoine -> setPrenom("Antoine");
+        $antoine -> setNom("Graire");
+        $antoine -> setEmail("antoine@gmail.com");
+        $antoine -> setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $antoine -> setPassword("$2y$10$5WyaegSfiSZUNjwxWUBEp.foaMG6SCrx6KS5SI1hLd43OxD8LLK..");
+        $manager -> persist($antoine);
+
+        $luc = new User();
+        $luc -> setPrenom("Luc");
+        $luc -> setNom("Leydert");
+        $luc -> setEmail("luc@gmail.com");
+        $luc -> setRoles(['ROLE_USER']);
+        $luc -> setPassword('$2y$10$vGoD7FFz9O8mbrprtccGvOxIb8Z0yXJhd4NFg8FfSAUzaAHUprxAK');
+        $manager -> persist($luc);
+
+
+
         $faker = \Faker\Factory::create('fr_FR');
 
 
