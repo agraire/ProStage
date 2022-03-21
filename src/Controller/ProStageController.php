@@ -132,18 +132,7 @@ class ProStageController extends AbstractController
     }
 
 
-    /**
-     * @Route("/formations", name="ProStage_formations")
-     */
-    public function afficherFormations(FormationRepository $reposFormation): Response
-    {
-        $formations = $reposFormation->findAll();
 
-        return $this->render(
-            'pro_stage/afficherFormations.html.twig',
-            ['formations' => $formations]
-        );
-    }
 
     /**
      * @Route("/stages/{id}", name="ProStage_stage")
@@ -174,19 +163,5 @@ class ProStageController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/formation/{id}", name="ProStage_detail_formation")
-     */
-    public function afficherDetailFormation(Formation $formation, StageRepository $reposStage): Response
-    {
-        $stages = $reposStage->findStagesPourUneFormation($formation->getNom());
-
-        return $this->render(
-            'pro_stage/affichageDetailFormation.html.twig',
-             [
-                'formation' => $formation,
-                'stages'    => $stages
-            ]
-        );
-    }
+    
 }
