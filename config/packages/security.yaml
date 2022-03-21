@@ -4,8 +4,8 @@ security:
         users_in_memory:
             memory:
                 users:
-                    antoine: { password: graire, roles: ROLE_ADMIN }
-                    luc: { password: leydert, roles: ROLE_USER }
+                    antoine: { password: $2y$10$Wvf1rMhVDD4xb7Xgb75zh.EkfgNOfb.k76l9unvA7mavkvVsMylVi, roles: ROLE_ADMIN }
+                    luc: { password: $2y$10$2mUqH95S7uHdTaeUqaTKYuzPgAsApJcaA4bH3dsqJJi6ondX9Mb9S, roles: ROLE_USER }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -29,4 +29,6 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 15
