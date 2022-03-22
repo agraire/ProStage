@@ -62,21 +62,33 @@
 											<li class="nav-item">
 												<a class="nav-link" href="{{path('ProStage_entreprises')}}">Filtrer par entreprise</a>
 											</li>
+
+
+											{# Fonctionnalité pour l'administrateur #}
+											{% if is_granted('ROLE_ADMIN') %}
 											<li class="nav-item">
 												<a class="nav-link" href="{{path('formation_index')}}">Filtrer par formation</a>
 											</li>
+											{% endif %}
 
+											
+
+											{# Fonctionnalité pour l'utilisateur authentifié #}
 
 											{% if is_granted('ROLE_USER') %}
 												<li class="nav-item active">
-													<a class="nav-link" href="{{path('app_login')}}">
+													<a class="nav-link" href="{{path('app_logout')}}">
 													{{ app.user.prenom }}
 													{{ app.user.nom }}
 													<i class="icon-user"></i>
 													Deconnexion
 													</a>
 												</li>
+
+											{# Fonctionnalité pour l'utilisateur NON authentifié #}
+
 											{% else %}
+
 												<li class="nav-item active">
 													<a class="nav-link" href="{{path('app_login')}}">
 													<i class="icon-user"></i>
