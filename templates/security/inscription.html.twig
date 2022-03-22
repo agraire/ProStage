@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}Inscription sur ProStage{% endblock %}
+
+{% block contenu %}
+{{ form_start(vueFormulaireUser) }}
+
+			<label>Nom de l'entreprise </label>
+
+		{{form_widget(vueFormulaireUser.prenom, {'attr':{'placeholder':"Exemple : Votre prénom..."}})}}
+
+			<label>Adresse de l'entreprise </label>
+
+		{{form_widget(vueFormulaireUser.nom, {'attr':{'placeholder':"Exemple : Votre nom..."}})}}
+
+			<label>Le secteur d'activite de l'entreprise</label>
+
+		{{form_widget(vueFormulaireUser.email, {'attr':{'placeholder':"Exemple : Votre email..."}})}}
+
+			<label>L'URL du site internet de l'entreprise</label>
+
+		{{form_widget(vueFormulaireUser.password, {'attr':{'placeholder':"Exemple : Votre email..."}})}}
+		
+
+    	<button type="submit" class="btn btn-dark">S'inscrire</button>
+
+	{{ form_end(vueFormulaireUser) }}
+{% endblock %}
