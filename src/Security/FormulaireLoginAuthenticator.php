@@ -96,7 +96,7 @@ class FormulaireLoginAuthenticator extends AbstractFormLoginAuthenticator implem
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectResponse($this->urlGenerator->generate('ProStage_accueil'));
     }
 
     protected function getLoginUrl()

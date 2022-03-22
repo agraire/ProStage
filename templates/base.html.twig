@@ -65,6 +65,27 @@
 											<li class="nav-item">
 												<a class="nav-link" href="{{path('formation_index')}}">Filtrer par formation</a>
 											</li>
+
+
+											{% if is_granted('ROLE_USER') %}
+												<li class="nav-item active">
+													<a class="nav-link" href="{{path('app_login')}}">
+													{{ app.user.prenom }}
+													{{ app.user.nom }}
+													<i class="icon-user"></i>
+													Deconnexion
+													</a>
+												</li>
+											{% else %}
+												<li class="nav-item active">
+													<a class="nav-link" href="{{path('app_login')}}">
+													<i class="icon-user"></i>
+													Connexion
+													</a>
+												</li>
+											{% endif %}
+
+											
 										</ul>
 									</div>
 								</nav>
