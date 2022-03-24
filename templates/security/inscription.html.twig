@@ -5,21 +5,21 @@
 {% block contenu %}
 {{ form_start(vueFormulaireUser) }}
 
-			<label>Nom de l'entreprise </label>
+			<label>Prénom </label>
 
 		{{form_widget(vueFormulaireUser.prenom, {'attr':{'placeholder':"Exemple : Votre prénom..."}})}}
 
-			<label>Adresse de l'entreprise </label>
+			<label>Nom </label>
 
 		{{form_widget(vueFormulaireUser.nom, {'attr':{'placeholder':"Exemple : Votre nom..."}})}}
 
-			<label>Le secteur d'activite de l'entreprise</label>
+			<label>Email</label>
 
 		{{form_widget(vueFormulaireUser.email, {'attr':{'placeholder':"Exemple : Votre email..."}})}}
 
-			<label>L'URL du site internet de l'entreprise</label>
+			<label></label>
 
-		{{form_widget(vueFormulaireUser.password, {'attr':{'placeholder':"Exemple : Votre email..."}})}}
+		{{form_widget(vueFormulaireUser.password, {'attr':{'placeholder':"Exemple : Votre password..."}})}}
 		
 
     	<button type="submit" class="btn btn-dark">S'inscrire</button>
