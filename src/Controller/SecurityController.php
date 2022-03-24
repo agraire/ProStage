@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -43,7 +44,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="app_inscription")
      */
-    public function inscription(Request $request, EntityManagerInterface $manager)
+    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
 
@@ -52,10 +53,17 @@ class SecurityController extends AbstractController
         $formulaireUser->handleRequest($request);
 
         if ($formulaireUser->isSubmitted() && $formulaireUser->isValid()){
-            // $manager->persist($user);
-            // $manager->flush();
+            //Attribuer un role à l'utilisateur
+            $user->setRoles(['ROLE_USER']);
 
-            return $this->redirectToRoute('ProStage_accueil');
+            //Encoder le mdp de l'utilisateur
+            $encodagePassword = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($encodagePassword);
+
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render(
