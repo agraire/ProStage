@@ -107,7 +107,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function __toString(){
+    public function __toStringEmail(){
         return $this->getEmail();
     }
     
@@ -156,5 +156,7 @@ class User implements UserInterface
         return $this;
     }
 
-   
+    public function __toString(){
+        return $this->getPrenom()." ".$this->getNom();
+    }
 }

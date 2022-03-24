@@ -106,7 +106,7 @@ class Stage
 
     public function __toString()
     {
-        return $this->getTitre();
+        return $this->getId()." - ".$this->getTitre();
     }
 
     /**
